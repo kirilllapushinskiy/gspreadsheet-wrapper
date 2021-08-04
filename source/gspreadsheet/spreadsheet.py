@@ -24,3 +24,21 @@ class Spreadsheet:
             majorDimension=dimension
         )
         return request.execute()['values']
+
+    def set_table_values(self, table_range, values,
+                         value_input_option='FORMATTED_STRING', dimension='ROWS'):
+        request = self.spreadsheets.values().batchUpdate(
+            spreadsheetId=self.spreadsheet_id,
+            body={
+                "valueInputOption": f"{value_input_option}",
+                "data":
+                    [
+                        {
+                            "range": f"{table_range}",
+                            "majorDimension": f"{dimension}",
+                            "values": [values]
+                        }
+                    ]
+            }
+        )
+        return request.execute()
