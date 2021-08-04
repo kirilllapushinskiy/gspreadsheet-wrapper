@@ -1,4 +1,4 @@
-from .spreadsheet import GSpreadsheets, Spreadsheet
 from .gservice import GService
+from .gspreadsheets import GSpreadsheets
 
-__all__ = ['GSpreadsheets', 'GService', 'Spreadsheet']
+__all__ = ['GSpreadsheets', 'GService']
