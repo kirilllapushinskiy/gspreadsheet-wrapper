@@ -1,15 +1,25 @@
 from .gservice import GService
 
 
-class Spreadsheet:
-    def __init__(self, g_service: GService, spreadsheet_id):
+class GSpreadsheets:
+    def __init__(self, g_service: GService):
         self.spreadsheets = g_service.spreadsheets()
-        self.spreadsheet_id = spreadsheet_id
 
-    def get_table_values(self, address='A:Z', date_render='SERIAL_NUMBER', dimension='ROWS'):
+    def get_spreadsheet(self, spreadsheet_id):
+        return Spreadsheet(spreadsheet_id, self.spreadsheets)
+
+
+class Spreadsheet:
+    def __init__(self, spreadsheet_id, spreadsheets):
+        self.spreadsheet_id = spreadsheet_id
+        self.spreadsheets = spreadsheets
+
+    def get_table_values(self, table_range='A:Z', value_render='FORMATTED_VALUE',
+                         date_render='FORMATTED_STRING', dimension='ROWS'):
         request = self.spreadsheets.values().get(
             spreadsheetId=self.spreadsheet_id,
-            range=address,
+            range=table_range,
+            valueRenderOption=value_render,
             dateTimeRenderOption=date_render,
             majorDimension=dimension
         )
