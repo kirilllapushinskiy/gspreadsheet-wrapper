@@ -11,5 +11,5 @@ class GService:
 
         self.service = discovery.build('sheets', 'v4', credentials=self.credentials)
 
-    def service_token(self, ):
+    def spreadsheets(self):
         return self.service.spreadsheets()
