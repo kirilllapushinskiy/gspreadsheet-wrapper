@@ -3,18 +3,18 @@ class Spreadsheet:
         self.spreadsheet_id = spreadsheet_id
         self.spreadsheets = spreadsheets
 
-    def get_values(self, ranges='A:Z', value_render='FORMATTED_VALUE',
+    def get_values(self, s_range='A:Z', value_render='FORMATTED_VALUE',
                    date_render='FORMATTED_STRING', dimension='ROWS'):
         request = self.spreadsheets.values().get(
             spreadsheetId=self.spreadsheet_id,
-            range=ranges,
+            range=s_range,
             valueRenderOption=value_render,
             dateTimeRenderOption=date_render,
             majorDimension=dimension
         )
         return request.execute()['values']
 
-    def set_values(self, ranges, values,
+    def set_values(self, s_range, values,
                    value_input_option='FORMATTED_STRING', dimension='ROWS'):
         request = self.spreadsheets.values().batchUpdate(
             spreadsheetId=self.spreadsheet_id,
@@ -23,7 +23,7 @@ class Spreadsheet:
                 "data":
                     [
                         {
-                            "range": f"{ranges}",
+                            "range": f"{s_range}",
                             "majorDimension": f"{dimension}",
                             "values": [values]
                         }
