@@ -1,4 +1,4 @@
-from gservice import GService
+from .gservice import GService
 
 
 class Spreadsheet:
